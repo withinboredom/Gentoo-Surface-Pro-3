@@ -1,4 +1,6 @@
-Gentoo-Surface-Pro-3
-====================
+Gentoo Linux on the Microsoft Surface Pro 3
+===========================================
 
-An attempt to get all of the resources for intalling Gentoo on the Surface Pro 3 into one place
+This is a repository for all the tweaks and tricks required to get Gentoo Linux installed on a Microsoft Surface Pro 3.
+
+Pull requests are welcome.
