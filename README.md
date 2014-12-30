@@ -4,8 +4,10 @@ Gentoo Linux on the Microsoft Surface Pro 3
 This is a repository for all the tweaks and tricks required to get Gentoo
 Linux installed on a Microsoft Surface Pro 3.
 
-The process for this is heavily cribbed from [this winero article](http://winaero.com/blog/how-to-install-linux-on-surface-pro-3/), but with the addition of making things work in Gentoo as well as
-other bits of research found elsewhere.
+The process for this is heavily cribbed from
+[this Winero article](http://winaero.com/blog/how-to-install-linux-on-surface-pro-3/),
+but with the addition of making things work in Gentoo as well as other bits of
+research found elsewhere.
 
 
 # Important Notes:
@@ -15,14 +17,10 @@ other bits of research found elsewhere.
   mode.
 * Do **not** remove the Windows partition.  Instead, resize it, either with
   a Windows-based partitioner, or with gparted.
-
-
-## Windows
-
-You need to keep Windows on there, unless you're super-brave and/or
-overconfident.  At the very least you'll need it if you ever want firmware
-updates, but more likely you'll want it to boot into when things go wrong with
-your Linux bootup.
+* You need to keep Windows on there, unless you're super-brave and/or
+  overconfident.  At the very least you'll need it if you ever want firmware
+  updates, but more likely you'll want it to boot into when things go wrong
+  with your Linux bootup.
 
 
 # A Quick Howto
@@ -99,7 +97,9 @@ I opted for a Systemd setup, so while I can declare that the above works for
 me, if you're using OpenRC, your mileage may vary.
 
 
-# Troubleshooting (Oh Noes! What Have I Done?)
+# Troubleshooting
+
+> Oh Noes! What Have I Done?!?
 
 The thing you really have to worry about is a kernel panic while (a) not using
 Grub, or with a really short timeout.  If you've configured EFI to boot with
