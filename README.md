@@ -61,9 +61,8 @@ You Will Need:
         /dev/sda4    1411072 103811071 102400000 48.8G Microsoft basic data
         /dev/sda5  103811072 500117503 396306432  189G Linux filesystem
 
-    Be sure to use gparted or a modern version of fdisk that supports GPT!
-    [gdisk](http://www.rodsbooks.com/), the graphical partitioner makes this
-    easy.
+    Be sure to use [gparted](http://gparted.org/) or
+    [gdisk](http://www.rodsbooks.com/)), as you'll need to support GPT.
 
 7.  Emerge `dev-vcs/git` and then checkout the Marvell repo of drivers and
     such to somewhere out-of-the-way.  Then create a symlink so your kernel
