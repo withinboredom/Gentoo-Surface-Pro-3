@@ -99,7 +99,7 @@ I opted for a Systemd setup, so while I can declare that the above works for
 me, if you're using OpenRC, your mileage may vary.
 
 
-# Troubeshooting (Oh Noes! What Have I Done?)
+# Troubleshooting (Oh Noes! What Have I Done?)
 
 The thing you really have to worry about is a kernel panic while (a) not using
 Grub, or with a really short timeout.  If you've configured EFI to boot with
