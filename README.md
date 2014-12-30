@@ -62,6 +62,8 @@ You Will Need:
         /dev/sda5  103811072 500117503 396306432  189G Linux filesystem
 
     Be sure to use gparted or a modern version of fdisk that supports GPT!
+    [gdisk](http://www.rodsbooks.com/), the graphical partitioner makes this
+    easy.
 
 7.  Emerge `dev-vcs/git` and then checkout the Marvell repo of drivers and
     such to somewhere out-of-the-way.  Then create a symlink so your kernel
