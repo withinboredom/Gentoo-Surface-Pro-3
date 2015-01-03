@@ -38,7 +38,7 @@ You Will Need:
     1. Turn off your Surface
     2. Hold down the volume-up rocker
     3. While holding down the volume-up rocker push the power button once
-    4. Wait until you see the Surface startup logo, then let got of the volume.
+    4. Wait until you see the Surface startup logo, then let go of the volume.
     
     Once in there, you can turn off SecureBoot.  Note that from here-on-in, if
     you've updated your firmware, the Surface logo will be on an ugly red
@@ -113,8 +113,8 @@ The fix for this is a *"magic handshake"*: you need to:
 
 1. Turn off your Surface
 2. Hold down the volume-up rocker
-3. While holding down the volume-up rocker push the power button once
-4. Wait until you see the Surface startup logo, then let got of the volume.
+3. While holding down the volume-down rocker push the power button once
+4. Wait until you see the Surface startup logo, then let go of the volume.
 
 This *might* work.  If it doesn't, I suggest variations on the above.  Try the
 volume-down button, try holding the power button longer, etc.  You should also
@@ -128,4 +128,3 @@ can start up with SystemRescueCD and fix whatever you broke.
 # Fork Me
 
 Pull requests are welcome.  In fact, they'd be downright awesome.
-
