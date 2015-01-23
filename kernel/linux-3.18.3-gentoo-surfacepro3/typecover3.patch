@@ -1,0 +1,43 @@
+diff -crB linux-3.18.1-gentoo/drivers/hid/hid-core.c linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-core.c
+*** linux-3.18.1-gentoo/drivers/hid/hid-core.c	2014-12-07 23:21:05.000000000 +0100
+--- linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-core.c	2014-12-30 11:40:39.202259463 +0100
+***************
+*** 702,707 ****
+--- 702,712 ----
+  	if (((parser->global.usage_page << 16) == HID_UP_SENSOR) &&
+  	    type == HID_COLLECTION_PHYSICAL)
+  		hid->group = HID_GROUP_SENSOR_HUB;
++ 
++ 	if (hid->vendor == USB_VENDOR_ID_MICROSOFT &&
++ 	    hid->product == USB_DEVICE_ID_MS_TYPE_COVER_3 &&
++ 	    hid->group == HID_GROUP_MULTITOUCH)
++ 		hid->group = HID_GROUP_GENERIC;
+  }
+  
+  static int hid_scan_main(struct hid_parser *parser, struct hid_item *item)
+diff -crB linux-3.18.1-gentoo/drivers/hid/hid-ids.h linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-ids.h
+*** linux-3.18.1-gentoo/drivers/hid/hid-ids.h	2014-12-07 23:21:05.000000000 +0100
+--- linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-ids.h	2014-12-30 11:40:39.201259846 +0100
+***************
+*** 642,647 ****
+--- 642,648 ----
+  #define USB_DEVICE_ID_MS_NE4K		0x00db
+  #define USB_DEVICE_ID_MS_NE4K_JP	0x00dc
+  #define USB_DEVICE_ID_MS_LK6K		0x00f9
++ #define USB_DEVICE_ID_MS_TYPE_COVER_3	0x07dc
+  #define USB_DEVICE_ID_MS_PRESENTER_8K_BT	0x0701
+  #define USB_DEVICE_ID_MS_PRESENTER_8K_USB	0x0713
+  #define USB_DEVICE_ID_MS_DIGITAL_MEDIA_3K	0x0730
+diff -crB linux-3.18.1-gentoo/drivers/hid/usbhid/hid-quirks.c linux-3.18.1-gentoo-surfacepro3/drivers/hid/usbhid/hid-quirks.c
+*** linux-3.18.1-gentoo/drivers/hid/usbhid/hid-quirks.c	2014-12-07 23:21:05.000000000 +0100
+--- linux-3.18.1-gentoo-surfacepro3/drivers/hid/usbhid/hid-quirks.c	2014-12-30 11:43:40.923348547 +0100
+***************
+*** 78,83 ****
+--- 78,84 ----
+  	{ USB_VENDOR_ID_FORMOSA, USB_DEVICE_ID_FORMOSA_IR_RECEIVER, HID_QUIRK_NO_INIT_REPORTS },
+  	{ USB_VENDOR_ID_FREESCALE, USB_DEVICE_ID_FREESCALE_MX28, HID_QUIRK_NOGET },
+  	{ USB_VENDOR_ID_MGE, USB_DEVICE_ID_MGE_UPS, HID_QUIRK_NOGET },
++ 	{ USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3, HID_QUIRK_NO_INIT_REPORTS },
+  	{ USB_VENDOR_ID_MSI, USB_DEVICE_ID_MSI_GT683R_LED_PANEL, HID_QUIRK_NO_INIT_REPORTS },
+  	{ USB_VENDOR_ID_NEXIO, USB_DEVICE_ID_NEXIO_MULTITOUCH_PTI0750, HID_QUIRK_NO_INIT_REPORTS },
+  	{ USB_VENDOR_ID_NOVATEK, USB_DEVICE_ID_NOVATEK_MOUSE, HID_QUIRK_NO_INIT_REPORTS },
