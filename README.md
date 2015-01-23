@@ -94,8 +94,17 @@ You Will Need:
 
 # Notes
 
-I opted for a Systemd setup, so while I can declare that the above works for
-me, if you're using OpenRC, your mileage may vary.
+The first thing you'll notice when you start up any GUI environment is that
+everything is **really** small.  This is because your Surface Pro 3 has HiDPI
+support (aka retina display) and your GUI hasn't been configured to understand
+that yet.
+
+Take a look at [Arch Wiki's HiDPI page](https://wiki.archlinux.org/index.php/HiDPI)
+for more info on what you can do to make things readable.  Currently, Firefox
+looks great, as do many GNOME apps.  Some stuff... not so much.
+
+Also, I opted for a Systemd setup, so while I can declare that the above works
+for me, if you're using OpenRC, your mileage may vary.
 
 
 # Troubleshooting
