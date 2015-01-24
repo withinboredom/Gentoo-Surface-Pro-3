@@ -1,6 +1,6 @@
-diff -crB linux-3.18.1-gentoo/drivers/hid/hid-core.c linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-core.c
-*** linux-3.18.1-gentoo/drivers/hid/hid-core.c	2014-12-07 23:21:05.000000000 +0100
---- linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-core.c	2014-12-30 11:40:39.202259463 +0100
+diff -crB a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+*** a/drivers/hid/hid-core.c	2014-12-07 23:21:05.000000000 +0100
+--- b/drivers/hid/hid-core.c	2014-12-30 11:40:39.202259463 +0100
 ***************
 *** 702,707 ****
 --- 702,712 ----
@@ -15,9 +15,9 @@ diff -crB linux-3.18.1-gentoo/drivers/hid/hid-core.c linux-3.18.1-gentoo-surface
   }
   
   static int hid_scan_main(struct hid_parser *parser, struct hid_item *item)
-diff -crB linux-3.18.1-gentoo/drivers/hid/hid-ids.h linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-ids.h
-*** linux-3.18.1-gentoo/drivers/hid/hid-ids.h	2014-12-07 23:21:05.000000000 +0100
---- linux-3.18.1-gentoo-surfacepro3/drivers/hid/hid-ids.h	2014-12-30 11:40:39.201259846 +0100
+diff -crB a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
+*** a/drivers/hid/hid-ids.h	2014-12-07 23:21:05.000000000 +0100
+--- b/drivers/hid/hid-ids.h	2014-12-30 11:40:39.201259846 +0100
 ***************
 *** 642,647 ****
 --- 642,648 ----
@@ -28,9 +28,9 @@ diff -crB linux-3.18.1-gentoo/drivers/hid/hid-ids.h linux-3.18.1-gentoo-surfacep
   #define USB_DEVICE_ID_MS_PRESENTER_8K_BT	0x0701
   #define USB_DEVICE_ID_MS_PRESENTER_8K_USB	0x0713
   #define USB_DEVICE_ID_MS_DIGITAL_MEDIA_3K	0x0730
-diff -crB linux-3.18.1-gentoo/drivers/hid/usbhid/hid-quirks.c linux-3.18.1-gentoo-surfacepro3/drivers/hid/usbhid/hid-quirks.c
-*** linux-3.18.1-gentoo/drivers/hid/usbhid/hid-quirks.c	2014-12-07 23:21:05.000000000 +0100
---- linux-3.18.1-gentoo-surfacepro3/drivers/hid/usbhid/hid-quirks.c	2014-12-30 11:43:40.923348547 +0100
+diff -crB a/drivers/hid/usbhid/hid-quirks.c b/drivers/hid/usbhid/hid-quirks.c
+*** a/drivers/hid/usbhid/hid-quirks.c	2014-12-07 23:21:05.000000000 +0100
+--- b/drivers/hid/usbhid/hid-quirks.c	2014-12-30 11:43:40.923348547 +0100
 ***************
 *** 78,83 ****
 --- 78,84 ----
