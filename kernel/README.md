@@ -13,3 +13,6 @@ there that you don't need.  Please feel free to experiement and submit pull
 requests for configurations without unnecessary modules, or with compiled-in
 options where we know the hardware is present on the SP3.
 
+I hope to include the patches for camera support, but for now you'll just have
+to do a search for that.
+
