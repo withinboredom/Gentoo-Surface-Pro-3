@@ -92,7 +92,13 @@ You Will Need:
         # efibootmgr --bootorder 0000,0002,0001
 
 
-# Notes
+# Once You're Up and Running
+
+I opted for a Systemd setup, so while I can declare that the above works
+for me, if you're using OpenRC, your mileage may vary.  Regardless, once
+you've got a functional system, there are still a few things to do:
+
+# HiDPI
 
 The first thing you'll notice when you start up any GUI environment is that
 everything is **really** small.  This is because your Surface Pro 3 has HiDPI
@@ -103,8 +109,20 @@ Take a look at [Arch Wiki's HiDPI page](https://wiki.archlinux.org/index.php/HiD
 for more info on what you can do to make things readable.  Currently, Firefox
 looks great, as do many GNOME apps.  Some stuff... not so much.
 
-Also, I opted for a Systemd setup, so while I can declare that the above works
-for me, if you're using OpenRC, your mileage may vary.
+## Bluetooth
+
+If you followed the above steps, everything you need should be available, you
+just need to turn on Bluetooth:
+
+    # systemctl start bluetooth
+    # systemctl enable bluetooth
+
+Check out the [Gentoo Bluetooth Guide](https://wiki.gentoo.org/wiki/Bluetooth)
+for more info.
+
+You'll find that pairing the pen with your Surface is easy, but my experience
+has been that once paired, it disconnects almost immediately.  Tips on what's
+going on here are appreciated.
 
 
 # Troubleshooting
