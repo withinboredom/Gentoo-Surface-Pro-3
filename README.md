@@ -124,6 +124,20 @@ You'll find that pairing the pen with your Surface is easy, but my experience
 has been that once paired, it disconnects almost immediately.  Tips on what's
 going on here are appreciated.
 
+## Rotation
+
+It's a tablet right?  It'd be nice if it could act like one.  For this, Xorg
+already does everything you need with its `xinput` and `xrandr` utilities, you
+just need a script to do the work for you:
+
+* `emerge xinput` You'll need this for the supplied script to work
+* Copy or symlink the `rotate` script in this repo at `usr/local/bin/rotate`
+  into your own `/usr/local/bin/` directory
+* Copy or symlink the `rotate.desktop` file in this repo at `home/user/.local/share/applications/rotate.desktop`
+  to `${HOME}/.local/share/applications/rotate.desktop`.
+
+Now you can rotate the screen simply by typing `rotate` in a shell, or running
+the `rotate.desktop` file in GNOME or KDE.
 
 # Troubleshooting
 
