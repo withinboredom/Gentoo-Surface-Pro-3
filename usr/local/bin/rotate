@@ -26,10 +26,10 @@ function input_rotator {
 
 case "$rotation" in 
     normal) 
-    xrandr -o left
+    xrandr -o right
     input_rotator 1
     ;;
-    left)
+    right)
     xrandr -o normal 
     input_rotator 0
     ;; 
