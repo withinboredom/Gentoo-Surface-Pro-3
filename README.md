@@ -76,8 +76,8 @@ You Will Need:
     step, emerge `gentoo-sources` and then copy the relevant `.config` file
     from this repo into `/usr/src/linux/`.
 
-9.  Patch your kernel.  If you're building a kernel >=3.19, you only need the
-    `camera.patch` file in this repo (it should be in the appropriate kernel
+9.  Patch your kernel.  If you're building kernel >=3.19.0, you only need the
+    `cameras.patch` file in this repo (it should be in the appropriate kernel
     folder).  If your kernel is older than that, you'll also need the
     `typecover.patch` file as well.  Instructions on how to do this can be
     found in the `README.md` file in the `kernel` folder of this repo.
