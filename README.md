@@ -74,18 +74,27 @@ You Will Need:
 
 8.  Continue with the install, and when you get to the kernel compilation
     step, emerge `gentoo-sources` and then copy the relevant `.config` file
-    from this repo into `/usr/src/linux/`.  From there, run `make oldconfig`
-9.  If you're building a kernel <3.19, you'll need to patch your sources with
-    the patch file in this repo.
-10. When you're ready, build and install.  This will take about an hour:
+    from this repo into `/usr/src/linux/`.
+
+9.  Patch your kernel.  If you're building a kernel >=3.19, you only need the
+    `camera.patch` file in this repo (it should be in the appropriate kernel
+    folder).  If your kernel is older than that, you'll also need the
+    `typecover.patch` file as well.  Instructions on how to do this can be
+    found in the `README.md` file in the `kernel` folder of this repo.
+
+10. Run `make oldconfig` just in case.
+
+11. Build and install your new kernel.  This will take about an hour since the
+    current `.config` we've got still needs some customisation for this
+    device:
 
         # make -j5 && make -j5 modules_install && make install
 
-11. Do the rest of the install, making sure to install GRUB with:
+12. Do the rest of the install, making sure to install GRUB with:
 
         # grub2-install --target=x86_64-efi
 
-12. Finally, you need to emerge `efibootmgr` and run the following command to
+13. Finally, you need to emerge `efibootmgr` and run the following command to
     configure your shiny new toy:
 
         # emerge sys-boot/efibootmgr
@@ -169,3 +178,4 @@ can start up with SystemRescueCD and fix whatever you broke.
 # Fork Me
 
 Pull requests are welcome.  In fact, they'd be downright awesome.
+
