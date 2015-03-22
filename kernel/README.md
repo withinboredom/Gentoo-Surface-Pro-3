@@ -16,9 +16,13 @@ To patch your kernel, just cd into your kernel directory and apply the patches:
     # cd /usr/src/linux
     # patch -p1 -i /path/to/cameras.patch
 
-Presently, this is just the Ubuntu 3.16 kernel repackaged and tweaked to play
-nice with Gentoo, so an observant person will find an awful lot of stuff in
-there that you don't need.  Please feel free to experiement and submit pull
-requests for configurations without unnecessary modules, or with compiled-in
-options where we know the hardware is present on the SP3.
+Kernels 3.19.1 and below are just the Ubuntu 3.16 kernel repackaged and tweaked
+to play nice with Gentoo, so an observant person will find an awful lot of
+stuff in there that you don't need.  3.19.2 and up however are manual
+configurations, the result of many hours of poking at my Surface and comparing
+my kernel with what came out of Ubuntu and `lsmod`.
+
+Please feel free to experiement and submit pull requests for configurations
+without unnecessary modules, or with compiled-in options where we know the
+hardware is present on the SP3.
 
