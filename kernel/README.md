@@ -1,6 +1,5 @@
 Here you'll find `.config` files for kernels that should work just fine on your
-Surface Pro 3.  Additionally, any patches necessary to get things working
-(Kernels < 3.19 need `typecover3.patch`, all kernels need `cameras.patch`) are
+Surface Pro 3.  Additionally, any patches necessary to get things working are
 included as well.
 
 To patch your kernel, just cd into your kernel directory and apply the patches:
@@ -15,6 +14,7 @@ To patch your kernel, just cd into your kernel directory and apply the patches:
 
     # cd /usr/src/linux
     # patch -p1 -i /path/to/cameras.patch
+    # patch -p1 -i /path/to/battery.patch
 
 The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of
@@ -29,4 +29,12 @@ status of the battery under 3.19.x.
 Please feel free to experiement and submit pull requests for configurations
 without unnecessary modules, or with compiled-in options where we know the
 hardware is present on the SP3.
+
+### A note about Systemd and other diviating configurations
+
+These kernels were developed for use with Systemd, so if you're not planning
+on using it, you'll want to change CONFIG_CMDLINE to reflect your environment.
+Similarly, if your root partition isn't on `/dev/sda5`, you'll probably want
+to tweak that line or drop it altogether in stead opting for something set in
+GRUB.
 
