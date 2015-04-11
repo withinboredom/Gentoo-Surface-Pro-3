@@ -17,6 +17,7 @@ To patch your kernel, just cd into your kernel directory and apply the patches:
     # patch -p1 -i /path/to/battery.patch
     # patch -p1 -i /path/to/buttons1.patch
     # patch -p1 -i /path/to/buttons2.patch
+    # patch -p1 -i /path/to/multitouch.patch
 
 The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of

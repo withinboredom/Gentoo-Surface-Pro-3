@@ -1,6 +1,6 @@
 --- a/drivers/media/usb/uvc/uvc_driver.c	2014-12-07 23:21:05.000000000 +0100
 +++ b/drivers/media/usb/uvc/uvc_driver.c	2015-01-25 00:39:37.355348506 +0100
-@@ -2348,6 +2348,22 @@
+@@ -2374,6 +2348,22 @@
  	  .bInterfaceSubClass	= 1,
  	  .bInterfaceProtocol	= 0,
  	  .driver_info		= UVC_QUIRK_PROBE_MINMAX },

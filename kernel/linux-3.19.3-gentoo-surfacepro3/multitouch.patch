@@ -1,0 +1,53 @@
+diff --git a/drivers/hid/hid-core.c b/drivers/hid/hid-core.c
+index 8b63879..c5a9d11 100644
+--- a/drivers/hid/hid-core.c
++++ b/drivers/hid/hid-core.c
+@@ -702,11 +702,6 @@ static void hid_scan_collection(struct hid_parser *parser, unsigned type)
+ 	if (((parser->global.usage_page << 16) == HID_UP_SENSOR) &&
+ 	    type == HID_COLLECTION_PHYSICAL)
+ 		hid->group = HID_GROUP_SENSOR_HUB;
+-
+-	if (hid->vendor == USB_VENDOR_ID_MICROSOFT &&
+-	    hid->product == USB_DEVICE_ID_MS_TYPE_COVER_3 &&
+-	    hid->group == HID_GROUP_MULTITOUCH)
+-		hid->group = HID_GROUP_GENERIC;
+ }
+ 
+ static int hid_scan_main(struct hid_parser *parser, struct hid_item *item)
+@@ -1860,7 +1855,6 @@ static const struct hid_device_id hid_have_special_driver[] = {
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_DIGITAL_MEDIA_3K) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_WIRELESS_OPTICAL_DESKTOP_3_0) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_OFFICE_KB) },
+-	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MONTEREY, USB_DEVICE_ID_GENIUS_KB29E) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MSI, USB_DEVICE_ID_MSI_GT683R_LED_PANEL) },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_NTRIG, USB_DEVICE_ID_NTRIG_TOUCH_SCREEN) },
+diff --git a/drivers/hid/hid-microsoft.c b/drivers/hid/hid-microsoft.c
+index cacda43..8ba17a9 100644
+--- a/drivers/hid/hid-microsoft.c
++++ b/drivers/hid/hid-microsoft.c
+@@ -274,8 +274,6 @@ static const struct hid_device_id ms_devices[] = {
+ 		.driver_data = MS_NOGET },
+ 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_COMFORT_MOUSE_4500),
+ 		.driver_data = MS_DUPLICATE_USAGES },
+-	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3),
+-		.driver_data = MS_HIDINPUT },
+ 
+ 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_PRESENTER_8K_BT),
+ 		.driver_data = MS_PRESENTER },
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index f65e78b..955d1b1 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -1246,6 +1246,11 @@ static const struct hid_device_id mt_devices[] = {
+ 		MT_USB_DEVICE(USB_VENDOR_ID_TURBOX,
+ 			USB_DEVICE_ID_TURBOX_TOUCHSCREEN_MOSART) },
+ 
++	/* Microsoft Type Cover */
++	{ .driver_data = MT_CLS_EXPORT_ALL_INPUTS,
++		MT_USB_DEVICE(USB_VENDOR_ID_MICROSOFT,
++			USB_DEVICE_ID_MS_TYPE_COVER_3) },
++
+ 	/* Panasonic panels */
+ 	{ .driver_data = MT_CLS_PANASONIC,
+ 		MT_USB_DEVICE(USB_VENDOR_ID_PANASONIC,
