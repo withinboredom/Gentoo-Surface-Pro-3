@@ -9,16 +9,12 @@ rotation="$(xrandr -q --verbose | grep 'connected' | egrep -o  '\) (normal|left|
 function input_rotator {
 
   # TypeCover
-  xinput set-prop --type=int --format=8 "Microsoft Surface Type Cover" "Evdev Axes Swap" ${1}
-  xinput set-prop --type=int --format=8 "Microsoft Surface Type Cover" "Evdev Axis Inversion" 0 ${1}
+  xinput set-prop --type=int --format=8 "Microsoft Surface Type Cover Mouse" "Evdev Axes Swap" ${1}
+  xinput set-prop --type=int --format=8 "Microsoft Surface Type Cover Mouse" "Evdev Axis Inversion" 0 ${1}
 
   # Pen
   xinput set-prop --type=int --format=8 "NTRG0001:01 1B96:1B05 Pen"    "Evdev Axes Swap" ${1}
   xinput set-prop --type=int --format=8 "NTRG0001:01 1B96:1B05 Pen"    "Evdev Axis Inversion" 0 ${1}
-
-  # Touchscreen
-  xinput set-prop --type=int --format=8 "NTRG0001:01 1B96:1B05"        "Evdev Axes Swap" ${1}
-  xinput set-prop --type=int --format=8 "NTRG0001:01 1B96:1B05"        "Evdev Axis Inversion" 0 ${1}
 
   xinput set-prop --type=int --format=8 4 "Evdev Axis Inversion" 0 ${1}
 
