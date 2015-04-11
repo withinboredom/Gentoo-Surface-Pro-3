@@ -179,3 +179,19 @@ can start up with SystemRescueCD and fix whatever you broke.
 
 Pull requests are welcome.  In fact, they'd be downright awesome.
 
+
+# Credits
+
+I've cobbled this repo together through tutorials online and patches submitted
+to [/r/SurfaceLinux](https://www.reddit.com/r/SurfaceLinux).  I haven't always
+been very good at attributing credit for these works, but I'll try to do better
+in the future.
+
+* The initial tutorial for [installing Debian](http://winaero.com/blog/how-to-install-linux-on-surface-pro-3/)
+  on the Surface Pro 3
+* The Xorg config and multitouch patch were provided by [felipeota](https://github.com/felipeota)
+* The button patches were found on the kernel testing branch
+  [[1](https://bugzilla.kernel.org/attachment.cgi?id=171291&action=diff&context=patch&collapsed=&headers=1&format=raw)]
+  [[2](https://bugzilla.kernel.org/attachment.cgi?id=171281&action=diff&context=patch&collapsed=&headers=1&format=raw)]
+* The battery patch was on the [kernel.org mailing list](http://marc.info/?l=linux-acpi&m=142785305602658&w=2)
+
