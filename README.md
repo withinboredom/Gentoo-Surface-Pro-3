@@ -14,9 +14,12 @@ research found elsewhere.
 
 * Use [SystemRescueCD](http://www.sysresccd.org/) as it supports booting from
   EFI which is necessary as the Surface Pro 3 doesn't have a fallback BIOS
-  mode.
+  mode. If you want to use a pure Gentoo build, then the utility Rufus (https://rufus.akeo.ie/) can 
+  successfully make an EFI-compatible USB stick from the Gentoo Live ISO.
 * Do **not** remove the Windows partition.  Instead, resize it, either with
-  a Windows-based partitioner, or with gparted.
+  a Windows-based partitioner, or with gparted. If your windows partition is encrypted
+  with bitlocker, you will need to use the dislocker utility to access it. (Note: dislocker
+  is in beta and may destroy your data! I, Cydergoth, used it succesfully, your mileage may vary.)
 * You need to keep Windows on there, unless you're super-brave and/or
   overconfident.  At the very least you'll need it if you ever want firmware
   updates, but more likely you'll want it to boot into when things go wrong
@@ -46,13 +49,16 @@ You Will Need:
 
 2.  Follow SystemRescueCD's instructions for putting it on a USB stick.  Use
     these instructions to put it either on a USB stick (in your USB hub), or
-    onto your Micro SD.
+    onto your Micro SD. If you want to use Gentoo Live ISO, use Rufus and be sure
+    to select the EFI compatible GPT partition format.
 3.  Boot into Windows and use it to boot off of the USB or SD card
 4.  Start the gui. I know it sounds silly, but the command line stuff doesn't
     seem to like the wifi adapter, and the USB ethernet adapter proved to be
-    flaky as well.
+    flaky as well. Gentoo Live ISO also doesn't work with wifi, but does with 
+    the docking station Ethernet)
 5.  Use the gui to connect to your wifi.
-6.  Open a terminal and follow the Gentoo installation handbook, using the
+6.  Open a terminal and follow the Gentoo installation handbook, or Sakaki's excellent guide
+    (https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide) using the
     following partitioning scheme:
 
         /dev/sda1       2048    739327    737280  360M Windows recovery environment
@@ -93,7 +99,8 @@ You Will Need:
 12. Do the rest of the install, making sure to install GRUB with:
 
         # grub2-install --target=x86_64-efi
-
+    (Sakaki's scripts do this for you if you're following his build guide for EFI)
+    
 13. Finally, you need to emerge `efibootmgr` and run the following command to
     configure your shiny new toy:
 
