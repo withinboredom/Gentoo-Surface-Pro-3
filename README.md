@@ -114,6 +114,15 @@ I opted for a Systemd setup, so while I can declare that the above works
 for me, if you're using OpenRC, your mileage may vary.  Regardless, once
 you've got a functional system, there are still a few things to do:
 
+# EFI and USB
+
+The Surface Pro 3 EFI bios has an annoying bug. On boot it seems to scan
+ the USB bus and create a new EFI boot entry for any device it finds, even
+ if one exists already with the same GPT partition UUID! The new entry 
+ overrides the correct existing entry with an incorrect one. This meant I 
+ had to resort to moving the linux files onto the internal EFI partition, as 
+ documented in Sakaki's excellent guide. - Cydergoth
+
 # HiDPI
 
 The first thing you'll notice when you start up any GUI environment is that
