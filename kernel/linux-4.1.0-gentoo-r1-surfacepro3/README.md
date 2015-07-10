@@ -5,7 +5,7 @@ To apply these patches emerge =sys-kernel/gentoo-sources-4.0.5
 then 
 
 $ cd /usr/src/linux
-$ patch -p4 <path to files>/kernel/linux-4.0.5-gentoo-surfacepro3/kernel.patch 
+$ patch -p0 <path to files>/kernel/linux-4.0.5-gentoo-surfacepro3/kernel.patch 
 $ cp <path to files>/kernel/linux-4.0.5-gentoo-surfacepro3/config .config
 
 Notes:
