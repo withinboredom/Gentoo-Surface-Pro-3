@@ -172,8 +172,8 @@ reverted:
                                     PropModeReplace, pEvdev->num_buttons, atoms, FALSE);
              XISetDevicePropertyDeletable(dev, prop_btn_label, FALSE);
 reverted:
---- evdev.h.orig	2015-07-14 22:54:30.761594882 -0500
-+++ evdev.h	2015-07-14 22:54:41.782657555 -0500
+--- src/evdev.h.orig	2015-07-14 22:54:30.761594882 -0500
++++ src/evdev.h	2015-07-14 22:54:41.782657555 -0500
 @@ -267,7 +267,7 @@
  void EvdevQueueButtonClicks(InputInfoPtr pInfo, int button, int count);
  void EvdevPostRelativeMotionEvents(InputInfoPtr pInfo);
