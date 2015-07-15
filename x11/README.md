@@ -13,3 +13,9 @@ To apply this patch, do the following:
 Then restart X11
 
 NOTE: This patch will output debug events to Xorg.0.log !
+
+Tools to diagnose Pen issues
+
+1) use evtest (as root) to see the raw events the kernel is seeing (these look pretty good on my Surface)
+2) use xev -event mouse, or xinput test to see the input events as X11 sees them
+3) use xinput list, xinput props-list to see how xinput sees the device (this is useful to see the new button legends)
