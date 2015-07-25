@@ -14,13 +14,20 @@ research found elsewhere.
 
 * Use [SystemRescueCD](http://www.sysresccd.org/) as it supports booting from
   EFI which is necessary as the Surface Pro 3 doesn't have a fallback BIOS
-  mode.
+  mode. If you want to use a pure Gentoo build, then the utility
+  [Rufus](https://rufus.akeo.ie/) can be used to make an EFI-compatible USB
+  stick from the Gentoo Live ISO.
 * Do **not** remove the Windows partition.  Instead, resize it, either with
-  a Windows-based partitioner, or with gparted.
+  a Windows-based partitioner, or with gparted. If your windows partition is
+  encrypted with bitlocker, you will need to use the dislocker utility to access
+  it.
+> Note: dislocker is in beta and may destroy your data!  Though this has been
+> shown to work just fine for some users, your mileage my vary.
+
 * You need to keep Windows on there, unless you're super-brave and/or
   overconfident.  At the very least you'll need it if you ever want firmware
   updates, but more likely you'll want it to boot into when things go wrong
-  with your Linux bootup.
+  with your Linux settup.
 
 
 # A Quick Howto
@@ -46,14 +53,17 @@ You Will Need:
 
 2.  Follow SystemRescueCD's instructions for putting it on a USB stick.  Use
     these instructions to put it either on a USB stick (in your USB hub), or
-    onto your Micro SD.
+    onto your Micro SD. If you want to use a Gentoo Live ISO, use Rufus and be
+    sure to select the *EFI compatible GPT partition format*.
 3.  Boot into Windows and use it to boot off of the USB or SD card
 4.  Start the gui. I know it sounds silly, but the command line stuff doesn't
     seem to like the wifi adapter, and the USB ethernet adapter proved to be
-    flaky as well.
+    flaky as well. Gentoo's Live ISO also doesn't work with wifi, but does with 
+    the docking station Ethernet.
 5.  Use the gui to connect to your wifi.
-6.  Open a terminal and follow the Gentoo installation handbook, using the
-    following partitioning scheme:
+6.  Open a terminal and follow the Gentoo installation handbook, (or [Sakaki's 
+    excellent guide](https://wiki.gentoo.org/wiki/Sakaki%27s_EFI_Install_Guide))
+    using the following partitioning scheme:
 
         /dev/sda1       2048    739327    737280  360M Windows recovery environment
         /dev/sda2     739328   1148927    409600  200M EFI System
@@ -94,6 +104,9 @@ You Will Need:
 
         # grub2-install --target=x86_64-efi
 
+    Note that Sakaki's scripts do this for you if you're following his build
+    guide for EFI.
+
 13. Finally, you need to emerge `efibootmgr` and run the following command to
     configure your shiny new toy:
 
@@ -106,6 +119,15 @@ You Will Need:
 I opted for a Systemd setup, so while I can declare that the above works
 for me, if you're using OpenRC, your mileage may vary.  Regardless, once
 you've got a functional system, there are still a few things to do:
+
+# EFI and USB
+
+The Surface Pro 3 EFI bios has an annoying bug. On boot it seems to scan
+the USB bus and create a new EFI boot entry for any device it finds, even
+if one exists already with the same GPT partition UUID.  The new entry
+overrides the correct existing entry with an incorrect one. This means that you
+may have to resort to moving the linux files onto the internal EFI partition, as
+documented in Sakaki's guide mentioned above.
 
 # HiDPI
 
@@ -147,6 +169,36 @@ just need a script to do the work for you:
 
 Now you can rotate the screen simply by typing `rotate` in a shell, or running
 the `rotate.desktop` file in GNOME or KDE.
+
+
+# Support Status
+
+As of the latest kernel in this repository, most features of the Surface are
+supported:
+
+
+## Working (tested)
+
+* Touchscreen
+* TypeCover keys
+* TypeCover touchpad
+* Windows button
+* Power button
+* Cameras
+* Pen with the evdev config from the X11 directory
+
+
+## Should be working
+
+* External display with Docking Station mDisplayPort (use xrandr to configure)
+* Docking Station ethernet
+* Docking Station audio
+
+
+## Problematic
+
+Sensors work if read from the "raw" devices but fail if buffered reads are used
+
 
 # Troubleshooting
 
@@ -194,4 +246,4 @@ in the future.
   [[1](https://bugzilla.kernel.org/attachment.cgi?id=171291&action=diff&context=patch&collapsed=&headers=1&format=raw)]
   [[2](https://bugzilla.kernel.org/attachment.cgi?id=171281&action=diff&context=patch&collapsed=&headers=1&format=raw)]
 * The battery patch was on the [kernel.org mailing list](http://marc.info/?l=linux-acpi&m=142785305602658&w=2)
-
+* Multiple pull requests and help have been supplied by [cydergoth](https://github.com/cydergoth)
