@@ -106,7 +106,7 @@ You Will Need:
 
     Note that Sakaki's scripts do this for you if you're following his build
     guide for EFI.
-    
+
 13. Finally, you need to emerge `efibootmgr` and run the following command to
     configure your shiny new toy:
 
@@ -124,9 +124,9 @@ you've got a functional system, there are still a few things to do:
 
 The Surface Pro 3 EFI bios has an annoying bug. On boot it seems to scan
 the USB bus and create a new EFI boot entry for any device it finds, even
-if one exists already with the same GPT partition UUID.  The new entry 
-overrides the correct existing entry with an incorrect one. This means that you 
-may have to resort to moving the linux files onto the internal EFI partition, as 
+if one exists already with the same GPT partition UUID.  The new entry
+overrides the correct existing entry with an incorrect one. This means that you
+may have to resort to moving the linux files onto the internal EFI partition, as
 documented in Sakaki's guide mentioned above.
 
 # HiDPI
