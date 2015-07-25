@@ -164,6 +164,35 @@ just need a script to do the work for you:
 Now you can rotate the screen simply by typing `rotate` in a shell, or running
 the `rotate.desktop` file in GNOME or KDE.
 
+
+# Support Status
+
+As of the latest kernel in this repository, most features of the Surface are
+supported:
+
+
+## Working (tested)
+
+* Touchscreen 
+* TypeCover keys
+* TypeCover touchpad
+* Power switches
+* Cameras
+* External display with Docking Station mDisplayPort (use xrandr to configure)
+* Pen with the evdev config from the X11 directory
+
+
+## Should be working
+
+* Docking Station ethernet
+* Docking Station audio
+
+
+## Problematic
+
+Sensors work if read from the "raw" devices but fail if buffered reads are used
+
+
 # Troubleshooting
 
 > Oh Noes! What Have I Done?!?
