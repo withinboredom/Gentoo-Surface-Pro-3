@@ -25,7 +25,7 @@ A big thanks to [cydergoth](https://github.com/cydergoth) who did the majority
 of the legwork on this one.
 
     # cd /usr/src/linux
-    # patch -p0 -i /path/to/linux-4.1.2-gentoo-surfacepro3/kernel.patch 
+    # patch -p0 -i /path/to/linux-4.1.2-gentoo-surfacepro3/kernel.patch
 
 The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of
