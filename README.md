@@ -22,7 +22,7 @@ research found elsewhere.
   encrypted with bitlocker, you will need to use the dislocker utility to access
   it.
 > Note: dislocker is in beta and may destroy your data!  Though this has been
-> shown to work just fine for some users, your mileage my vary.
+> shown to work just fine for some users, your mileage may vary.
 
 * You need to keep Windows on there, unless you're super-brave and/or
   overconfident.  At the very least you'll need it if you ever want firmware
