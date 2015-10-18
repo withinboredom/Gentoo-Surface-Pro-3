@@ -27,7 +27,7 @@ research found elsewhere.
 * You need to keep Windows on there, unless you're super-brave and/or
   overconfident.  At the very least you'll need it if you ever want firmware
   updates, but more likely you'll want it to boot into when things go wrong
-  with your Linux settup.
+  with your Linux setup.
 
 
 # A Quick Howto
