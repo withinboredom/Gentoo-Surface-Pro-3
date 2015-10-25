@@ -1,0 +1,348 @@
+diff -Ncr drivers/hid/hid-core.c drivers/hid/hid-core.c
+*** drivers/hid/hid-core.c	2015-08-30 20:34:09.000000000 +0200
+--- drivers/hid/hid-core.c	2015-10-25 20:48:48.970237612 +0100
+***************
+*** 704,716 ****
+  	    type == HID_COLLECTION_PHYSICAL)
+  		hid->group = HID_GROUP_SENSOR_HUB;
+  
+- 	if (hid->vendor == USB_VENDOR_ID_MICROSOFT &&
+- 	    (hid->product == USB_DEVICE_ID_MS_TYPE_COVER_3 ||
+- 	     hid->product == USB_DEVICE_ID_MS_TYPE_COVER_3_JP ||
+- 	     hid->product == USB_DEVICE_ID_MS_POWER_COVER) &&
+- 	    hid->group == HID_GROUP_MULTITOUCH)
+- 		hid->group = HID_GROUP_GENERIC;
+- 
+  	if ((parser->global.usage_page << 16) == HID_UP_GENDESK)
+  		for (i = 0; i < parser->local.usage_index; i++)
+  			if (parser->local.usage[i] == HID_GD_POINTER)
+--- 704,709 ----
+***************
+*** 1905,1912 ****
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_DIGITAL_MEDIA_3K) },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_WIRELESS_OPTICAL_DESKTOP_3_0) },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_OFFICE_KB) },
+- 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3) },
+- 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3_JP) },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_POWER_COVER) },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MONTEREY, USB_DEVICE_ID_GENIUS_KB29E) },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MSI, USB_DEVICE_ID_MSI_GT683R_LED_PANEL) },
+--- 1898,1903 ----
+diff -Ncr drivers/hid/hid-microsoft.c drivers/hid/hid-microsoft.c
+*** drivers/hid/hid-microsoft.c	2015-08-30 20:34:09.000000000 +0200
+--- drivers/hid/hid-microsoft.c	2015-10-25 20:48:48.971237604 +0100
+***************
+*** 276,285 ****
+  		.driver_data = MS_NOGET },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_COMFORT_MOUSE_4500),
+  		.driver_data = MS_DUPLICATE_USAGES },
+- 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3),
+- 		.driver_data = MS_HIDINPUT },
+- 	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_TYPE_COVER_3_JP),
+- 		.driver_data = MS_HIDINPUT },
+  	{ HID_USB_DEVICE(USB_VENDOR_ID_MICROSOFT, USB_DEVICE_ID_MS_POWER_COVER),
+  		.driver_data = MS_HIDINPUT },
+  
+--- 276,281 ----
+diff -Ncr drivers/hid/hid-multitouch.c drivers/hid/hid-multitouch.c
+*** drivers/hid/hid-multitouch.c	2015-08-30 20:34:09.000000000 +0200
+--- drivers/hid/hid-multitouch.c	2015-10-25 20:48:48.972237596 +0100
+***************
+*** 1277,1282 ****
+--- 1277,1287 ----
+  		MT_USB_DEVICE(USB_VENDOR_ID_TURBOX,
+  			USB_DEVICE_ID_TURBOX_TOUCHSCREEN_MOSART) },
+  
++         /* Microsoft Type Cover */
++         { .driver_data = MT_CLS_EXPORT_ALL_INPUTS,
++                 MT_USB_DEVICE(USB_VENDOR_ID_MICROSOFT,
++                         USB_DEVICE_ID_MS_TYPE_COVER_3) },
++ 
+  	/* Panasonic panels */
+  	{ .driver_data = MT_CLS_PANASONIC,
+  		MT_USB_DEVICE(USB_VENDOR_ID_PANASONIC,
+diff -Ncr drivers/media/usb/uvc/uvc_driver.c drivers/media/usb/uvc/uvc_driver.c
+*** drivers/media/usb/uvc/uvc_driver.c	2015-08-30 20:34:09.000000000 +0200
+--- drivers/media/usb/uvc/uvc_driver.c	2015-10-25 20:48:48.973237588 +0100
+***************
+*** 2363,2368 ****
+--- 2363,2384 ----
+  	  .bInterfaceSubClass	= 1,
+  	  .bInterfaceProtocol	= 0,
+  	  .driver_info		= UVC_QUIRK_PROBE_MINMAX },
++         /* Microsoft Surface Pro 3 Front */
++         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
++                                 | USB_DEVICE_ID_MATCH_INT_INFO,
++           .idVendor             = 0x045e,
++           .idProduct            = 0x07be,
++           .bInterfaceClass      = USB_CLASS_VIDEO,
++           .bInterfaceSubClass   = 1,
++           .bInterfaceProtocol   = 1 },
++         /* Microsoft Surface Pro 3 Rear */
++         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
++                                 | USB_DEVICE_ID_MATCH_INT_INFO,
++           .idVendor             = 0x045e,
++           .idProduct            = 0x07bf,
++           .bInterfaceClass      = USB_CLASS_VIDEO,
++           .bInterfaceSubClass   = 1,
++           .bInterfaceProtocol   = 1 },
+  	/* Syntek (HP Spartan) */
+  	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+  				| USB_DEVICE_ID_MATCH_INT_INFO,
+diff -Ncr drivers/platform/x86/Kconfig drivers/platform/x86/Kconfig
+*** drivers/platform/x86/Kconfig	2015-08-30 20:34:09.000000000 +0200
+--- drivers/platform/x86/Kconfig	2015-10-25 20:48:48.974237580 +0100
+***************
+*** 919,922 ****
+--- 919,929 ----
+  	The PMC is an ARC processor which defines IPC commands for communication
+  	with other entities in the CPU.
+  
++ config SURFACE_BUTTON
++         tristate "Surface Pro Button Driver"
++         depends on ACPI
++         ---help---
++         This driver provides button support for the surface pro tablet, including
++         Power Button, Home Button, Volume Button.
++ 
+  endif # X86_PLATFORM_DEVICES
+diff -Ncr drivers/platform/x86/Makefile drivers/platform/x86/Makefile
+*** drivers/platform/x86/Makefile	2015-08-30 20:34:09.000000000 +0200
+--- drivers/platform/x86/Makefile	2015-10-25 20:48:48.975237572 +0100
+***************
+*** 60,62 ****
+--- 60,63 ----
+  obj-$(CONFIG_PVPANIC)           += pvpanic.o
+  obj-$(CONFIG_ALIENWARE_WMI)	+= alienware-wmi.o
+  obj-$(CONFIG_INTEL_PMC_IPC)	+= intel_pmc_ipc.o
++ obj-$(CONFIG_SURFACE_BUTTON)    += surface_button.o
+diff -Ncr drivers/platform/x86/surface_button.c drivers/platform/x86/surface_button.c
+*** drivers/platform/x86/surface_button.c	1970-01-01 01:00:00.000000000 +0100
+--- drivers/platform/x86/surface_button.c	2015-10-25 20:48:34.779351817 +0100
+***************
+*** 0 ****
+--- 1,224 ----
++ /*
++  * Button support for surface.
++  *
++  * (C) Copyright 2015 Intel Corporation
++  *
++  * This program is free software; you can redistribute it and/or
++  * modify it under the terms of the GNU General Public License
++  * as published by the Free Software Foundation; version 2
++  * of the License.
++  */
++ 
++ #include <linux/kernel.h>
++ #include <linux/module.h>
++ #include <linux/init.h>
++ #include <linux/types.h>
++ #include <linux/input.h>
++ #include <linux/acpi.h>
++ #include <acpi/button.h>
++ 
++ #define SURFACE_BUTTON_HID		"MSHW0028"
++ #define SURFACE_BUTTON_CLASS               "button"
++ #define SURFACE_BUTTON_SUB_CLASS	"ec"
++ #define SURFACE_BUTTON_DEVICE_NAME		"EC"
++ 
++ #define SURFACE_BUTTON_NOTIFY_PRESS_POWER	0xc6
++ #define SURFACE_BUTTON_NOTIFY_RELEASE_POWER	0xc7
++ 
++ #define SURFACE_BUTTON_NOTIFY_PRESS_HOME	0xc4
++ #define SURFACE_BUTTON_NOTIFY_RELEASE_HOME	0xc5
++ 
++ #define SURFACE_BUTTON_NOTIFY_PRESS_VOLUME_UP	0xc0
++ #define SURFACE_BUTTON_NOTIFY_RELEASE_VOLUME_UP	0xc1
++ 
++ #define SURFACE_BUTTON_NOTIFY_PRESS_VOLUME_DOWN	0xc2
++ #define SURFACE_BUTTON_NOTIFY_RELEASE_VOLUME_DOWN	0xc3
++ 
++ ACPI_MODULE_NAME("surface button");
++ 
++ #define _COMPONENT              ACPI_BUTTON_COMPONENT
++ 
++ MODULE_AUTHOR("Chen Yu");
++ MODULE_DESCRIPTION("Surface Button Driver");
++ MODULE_LICENSE("GPL");
++ 
++ /*
++  * Power button, Home button, Volume button are handled by EC
++  */
++ static const struct acpi_device_id surface_button_device_ids[] = {
++ 	{SURFACE_BUTTON_HID,    0},
++ 	{"", 0},
++ };
++ MODULE_DEVICE_TABLE(acpi, surface_button_device_ids);
++ 
++ static int surface_button_add(struct acpi_device *device);
++ static int surface_button_remove(struct acpi_device *device);
++ static void surface_button_notify(struct acpi_device *device, u32 event);
++ 
++ #ifdef CONFIG_PM_SLEEP
++ static int surface_button_suspend(struct device *dev);
++ static int surface_button_resume(struct device *dev);
++ #else
++ #define surface_button_suspend NULL
++ #define surface_button_resume NULL
++ #endif
++ 
++ static SIMPLE_DEV_PM_OPS(surface_button_pm,
++ 		surface_button_suspend, surface_button_resume);
++ 
++ static struct acpi_driver surface_button_driver = {
++ 	.name = "surface button",
++ 	.class = SURFACE_BUTTON_CLASS,
++ 	.ids = surface_button_device_ids,
++ 	.ops = {
++ 		.add = surface_button_add,
++ 		.remove = surface_button_remove,
++ 		.notify = surface_button_notify,
++ 	},
++ 	.drv.pm = &surface_button_pm,
++ };
++ 
++ struct surface_button {
++ 	unsigned int type;
++ 	struct input_dev *input;
++ 	char phys[32];			/* for input device */
++ 	unsigned long pushed;
++ 	bool suspended;
++ };
++ 
++ static void surface_button_notify(struct acpi_device *device, u32 event)
++ {
++ 	struct surface_button *button = acpi_driver_data(device);
++ 	struct input_dev *input;
++ 	int key_code = KEY_RESERVED, pressed = 0;
++ 
++ 	switch (event) {
++ 	case SURFACE_BUTTON_NOTIFY_PRESS_POWER:
++ 		pressed = 1;
++ 		/*go through*/
++ 	case SURFACE_BUTTON_NOTIFY_RELEASE_POWER:
++ 		key_code = KEY_POWER;
++ 		break;
++ 	case SURFACE_BUTTON_NOTIFY_PRESS_HOME:
++ 		pressed = 1;
++ 	case SURFACE_BUTTON_NOTIFY_RELEASE_HOME:
++ 		key_code = KEY_LEFTMETA;
++ 		break;
++ 	case SURFACE_BUTTON_NOTIFY_PRESS_VOLUME_UP:
++ 		pressed = 1;
++ 	case SURFACE_BUTTON_NOTIFY_RELEASE_VOLUME_UP:
++ 		key_code = KEY_VOLUMEUP;
++ 		break;
++ 	case SURFACE_BUTTON_NOTIFY_PRESS_VOLUME_DOWN:
++ 		pressed = 1;
++ 	case SURFACE_BUTTON_NOTIFY_RELEASE_VOLUME_DOWN:
++ 		key_code = KEY_VOLUMEDOWN;
++ 		break;
++ 
++ 	default:
++ 		ACPI_DEBUG_PRINT((ACPI_DB_INFO,
++ 				  "Unsupported event [0x%x]\n", event));
++ 		break;
++ 	}
++ 
++ 	input = button->input;
++ 
++ 	if (KEY_RESERVED == key_code)
++ 		return;
++ 
++ 	if (pressed)
++ 		pm_wakeup_event(&device->dev, 0);
++ 
++ 	if (button->suspended)
++ 		return;
++ 
++ 	input_report_key(input, key_code, pressed);
++ 	input_sync(input);
++ 
++ }
++ 
++ #ifdef CONFIG_PM_SLEEP
++ static int surface_button_suspend(struct device *dev)
++ {
++ 	struct acpi_device *device = to_acpi_device(dev);
++ 	struct surface_button *button = acpi_driver_data(device);
++ 
++ 	button->suspended = true;
++ 	return 0;
++ }
++ 
++ static int surface_button_resume(struct device *dev)
++ {
++ 	struct acpi_device *device = to_acpi_device(dev);
++ 	struct surface_button *button = acpi_driver_data(device);
++ 
++ 	button->suspended = false;
++ 	return 0;
++ }
++ #endif
++ 
++ static int surface_button_add(struct acpi_device *device)
++ {
++ 	struct surface_button *button;
++ 	struct input_dev *input;
++ 	const char *hid = acpi_device_hid(device);
++ 	char *name, *class;
++ 	int error;
++ 
++ 	button = kzalloc(sizeof(struct surface_button), GFP_KERNEL);
++ 	if (!button)
++ 		return -ENOMEM;
++ 
++ 	device->driver_data = button;
++ 
++ 	button->input = input = input_allocate_device();
++ 	if (!input) {
++ 		error = -ENOMEM;
++ 		goto err_free_button;
++ 	}
++ 
++ 	name = acpi_device_name(device);
++ 	class = acpi_device_class(device);
++ 
++ 	strcpy(name, SURFACE_BUTTON_DEVICE_NAME);
++ 	sprintf(class, "%s/%s",
++ 		SURFACE_BUTTON_CLASS, SURFACE_BUTTON_SUB_CLASS);
++ 
++ 	snprintf(button->phys, sizeof(button->phys), "%s/button/input0", hid);
++ 
++ 	input->name = name;
++ 	input->phys = button->phys;
++ 	input->id.bustype = BUS_HOST;
++ 	input->dev.parent = &device->dev;
++ 
++ 	input_set_capability(input, EV_KEY, KEY_POWER);
++ 	input_set_capability(input, EV_KEY, KEY_LEFTMETA);
++ 	input_set_capability(input, EV_KEY, KEY_VOLUMEUP);
++ 	input_set_capability(input, EV_KEY, KEY_VOLUMEDOWN);
++ 
++ 
++ 	error = input_register_device(input);
++ 	if (error)
++ 		goto err_free_input;
++ 
++ 	ACPI_DEBUG_PRINT((ACPI_DB_INFO,
++ 			"%s [%s]\n", name, acpi_device_bid(device)));
++ 	return 0;
++ 
++  err_free_input:
++ 	input_free_device(input);
++  err_free_button:
++ 	kfree(button);
++ 	return error;
++ }
++ 
++ static int surface_button_remove(struct acpi_device *device)
++ {
++ 	struct surface_button *button = acpi_driver_data(device);
++ 
++ 	input_unregister_device(button->input);
++ 	kfree(button);
++ 	return 0;
++ }
++ 
++ module_acpi_driver(surface_button_driver);

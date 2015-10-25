@@ -7,12 +7,14 @@ To patch your kernel, just cd into your kernel directory and apply the patches:
 ### Kernels older then 3.19
 
     # cd /usr/src/linux
+    # cp /path/to/linux-3.x.x-gentoo-surfacepro3/.config .
     # patch -p1 -i /path/to/cameras.patch
     # patch -p1 -i /path/to/typecover3.patch
 
-### Kernels 3.19+
+### Kernels 3.19.x
 
     # cd /usr/src/linux
+    # cp /path/to/linux-3.19.x-gentoo-surfacepro3/.config .
     # patch -p1 -i /path/to/cameras.patch
     # patch -p1 -i /path/to/battery.patch
     # patch -p1 -i /path/to/buttons1.patch
@@ -25,7 +27,18 @@ A big thanks to [cydergoth](https://github.com/cydergoth) who did the majority
 of the legwork on this one.
 
     # cd /usr/src/linux
+    # cp /path/to/linux-4.1.2-gentoo-surfacepro3/.config .
     # patch -p0 -i /path/to/linux-4.1.2-gentoo-surfacepro3/kernel.patch
+
+### Kernel 4.2.3
+
+Based heavily on cydergoth's work from 4.1.2, this version can be setup the
+same way:
+
+    # cd /usr/src/linux
+    # cp /path/to/linux-4.2.3-gentoo-surfacepro3/.config .
+    # patch -p0 -i /path/to/linux-4.2.3-gentoo-surfacepro3/kernel.patch
+
 
 The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of
