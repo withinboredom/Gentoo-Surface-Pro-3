@@ -232,6 +232,12 @@ can start up with SystemRescueCD and fix whatever you broke.
 Pull requests are welcome.  In fact, they'd be downright awesome.
 
 
+# Further Reading
+
+* There's a [similar project for Arch Linux](https://github.com/matthewwardrop/linux-surfacepro3)
+  that might help with writing new patches for gentoo-sources.
+
+
 # Credits
 
 I've cobbled this repo together through tutorials online and patches submitted
