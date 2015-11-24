@@ -1,0 +1,13 @@
+#!/bin/sh
+
+#
+# Courtesy of cas00 on Reddit:
+# https://www.reddit.com/r/SurfaceLinux/comments/3sw93t/need_some_help_with_touch_screen_problem/cx34hh8
+#
+# Execute this to hopefully restore touch screen suport when it flakes out on
+# you.
+#
+
+xinput disable 'NTRG0001:01 1B96:1B05'
+xinput enable 'NTRG0001:01 1B96:1B05'
+
