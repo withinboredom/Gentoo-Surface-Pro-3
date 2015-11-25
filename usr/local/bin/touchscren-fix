@@ -11,3 +11,5 @@
 xinput disable 'NTRG0001:01 1B96:1B05'
 xinput enable 'NTRG0001:01 1B96:1B05'
 
+notify-send "Fixing the touch screen"
+
