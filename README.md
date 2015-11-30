@@ -114,13 +114,15 @@ You Will Need:
         # efibootmgr --bootorder 0000,0002,0001
 
 
+
 # Once You're Up and Running
 
 I opted for a Systemd setup, so while I can declare that the above works
 for me, if you're using OpenRC, your mileage may vary.  Regardless, once
 you've got a functional system, there are still a few things to do:
 
-# EFI and USB
+
+## EFI and USB
 
 The Surface Pro 3 EFI bios has an annoying bug. On boot it seems to scan
 the USB bus and create a new EFI boot entry for any device it finds, even
@@ -129,7 +131,8 @@ overrides the correct existing entry with an incorrect one. This means that you
 may have to resort to moving the linux files onto the internal EFI partition, as
 documented in Sakaki's guide mentioned above.
 
-# HiDPI
+
+## HiDPI
 
 The first thing you'll notice when you start up any GUI environment is that
 everything is **really** small.  This is because your Surface Pro 3 has HiDPI
@@ -139,6 +142,7 @@ that yet.
 Take a look at [Arch Wiki's HiDPI page](https://wiki.archlinux.org/index.php/HiDPI)
 for more info on what you can do to make things readable.  Currently, Firefox
 looks great, as do many GNOME apps.  Some stuff... not so much.
+
 
 ## Bluetooth
 
@@ -155,6 +159,7 @@ You'll find that pairing the pen with your Surface is easy, but my experience
 has been that once paired, it disconnects almost immediately.  Tips on what's
 going on here are appreciated.
 
+
 ## Rotation
 
 It's a tablet right?  It'd be nice if it could act like one.  For this, Xorg
@@ -169,6 +174,21 @@ just need a script to do the work for you:
 
 Now you can rotate the screen simply by typing `rotate` in a shell, or running
 the `rotate.desktop` file in GNOME or KDE.
+
+
+## The Touchscreen
+
+Provded that you've followed all of the above instructions, the touchscreen
+should work *most of the time*.  For some reason, it can occasionally flake
+out and stop working.  This can be especially annoying if you've detached the
+keyboard and can't tell the Surface to restart.
+
+The fix however is quite simple, and there's a [script](https://github.com/danielquinn/Gentoo-Surface-Pro-3/blob/master/usr/local/bin/touchscreen-fix)
+in this repo to automatically fix it for you.  The best way to make use of
+this is to place this script in `/usr/local/bin` and then map a key
+combination like `Win+VolumeUp` to executing it.  Then if the touchscreen ever
+cuts out, you can hold VolumeUp and touch the Windows logo and like magic
+you'll have your touchscreen back.
 
 
 # Support Status
