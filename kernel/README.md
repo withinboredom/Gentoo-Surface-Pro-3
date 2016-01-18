@@ -41,7 +41,10 @@ same way:
 
 ### Kernel 4.4.0
 
-With 4.4.x, we now have support for the Surface Pro 4 TypeCover.
+With 4.4.x, we now have support for the Surface Pro 4 TypeCover.  Big thanks
+to [neoreeps' surface-pro-3 repo](https://github.com/neoreeps/surface-pro-3)
+which contained [this handy patch](https://github.com/neoreeps/surface-pro-3/blob/master/wily_surface.patch)
+that I adapted to work gentoo-sources' 4.4.0.
 
     # cd /usr/src/linux
     # cp /path/to/linux-4.4.0-gentoo-surfacepro3/.config .
