@@ -39,6 +39,14 @@ same way:
     # cp /path/to/linux-4.2.3-gentoo-surfacepro3/.config .
     # patch -p0 -i /path/to/linux-4.2.3-gentoo-surfacepro3/kernel.patch
 
+### Kernel 4.4.0
+
+With 4.4.x, we now have support for the Surface Pro 4 TypeCover.
+
+    # cd /usr/src/linux
+    # cp /path/to/linux-4.4.0-gentoo-surfacepro3/.config .
+    # patch -p1 -i /path/to/kernel.patch
+
 
 The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of
@@ -50,15 +58,15 @@ The early 3.19.x kernels have more patches because new support is being
 developed against that tree, so while it looks more sketchy, I'd still
 recommend that you build the latest kernel available.
 
-Please feel free to experiement and submit pull requests for configurations
+Please feel free to experiment and submit pull requests for configurations
 without unnecessary modules, or with compiled-in options where we know the
 hardware is present on the SP3.
 
-### A note about Systemd and other diviating configurations
+### A note about Systemd and other deviating configurations
 
 These kernels were developed for use with Systemd, so if you're not planning
 on using it, you'll want to change CONFIG_CMDLINE to reflect your environment.
 Similarly, if your root partition isn't on `/dev/sda5`, you'll probably want
-to tweak that line or drop it altogether in stead opting for something set in
+to tweak that line or drop it altogether instead opting for something set in
 GRUB.
 
