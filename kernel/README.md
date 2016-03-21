@@ -55,11 +55,9 @@ The 3.18.x kernels are just the Ubuntu 3.16 kernel repackaged and tweaked
 to play nice with Gentoo, so an observant person will find an awful lot of
 stuff in there that you don't need.  3.19.2 and up however are manual
 configurations, the result of many hours of poking at my Surface and comparing
-my kernel with what came out of Ubuntu and `lsmod`.
-
-The early 3.19.x kernels have more patches because new support is being
-developed against that tree, so while it looks more sketchy, I'd still
-recommend that you build the latest kernel available.
+my kernel with what came out of Ubuntu and `lsmod`.  At this point, you should
+probably not be looking at these old kernels.  Use the 4.x ones instead as
+they're specifically developed for the Surface.
 
 Please feel free to experiment and submit pull requests for configurations
 without unnecessary modules, or with compiled-in options where we know the
