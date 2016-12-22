@@ -42,7 +42,7 @@ the same way:
 
 ### Kernel 4.4.x
 
-With 4.4.x, we now have support for the Surface Pro 4 TypeCover.  Big 
+With 4.4.x, we now have support for the Surface Pro 4 TypeCover.  Big
 thanks to [neoreeps' surface-pro-3 repo](https://github.com/neoreeps/surface-pro-3)
 which contained [this handy patch](https://github.com/neoreeps/surface-pro-3/blob/master/wily_surface.patch)
 that I adapted to work gentoo-sources' 4.4.0.
@@ -65,14 +65,26 @@ I don't know how to configure my kernel to use an initrd.
     # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/touchscreen_multitouch_fixes1.patch"
     # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/touchscreen_multitouch_fixes2.patch"
 
+### Kernel 4.9.x
+
+The patches for this kernel are very similar to those from 4.6.x with the
+exception of the wifi patch which I imported from [alyptik's repo](https://github.com/alyptik/linux-surfacepro3-rt).
+
+    # cd /usr/src/linux
+    # cp /path/to/linux-4.9.0-gentoo-surfacepro3/.config .
+    # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/wifi.patch"
+    # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/multitouch.patch"
+    # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/touchscreen_multitouch_fixes1.patch"
+    # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/touchscreen_multitouch_fixes2.patch"
+
 Please feel free to experiment and submit pull requests for
 configurations without unnecessary modules, or with compiled-in options
 where we know the hardware is present on the SP3.
 
 ### A note about Systemd and other deviating configurations
 
-These kernels were developed for use with Systemd, so if you're not 
-planning on using it, you'll want to change CONFIG_CMDLINE to reflect 
+These kernels were developed for use with Systemd, so if you're not
+planning on using it, you'll want to change CONFIG_CMDLINE to reflect
 your environment. Similarly, if your root partition isn't on
 `/dev/sda5`, you'll probably want to tweak that line or drop it
 altogether instead opting for something set in GRUB.
