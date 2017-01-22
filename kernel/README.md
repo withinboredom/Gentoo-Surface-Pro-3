@@ -71,7 +71,7 @@ The patches for this kernel are very similar to those from 4.6.x with the
 exception of the wifi patch which I imported from [alyptik's repo](https://github.com/alyptik/linux-surfacepro3-rt).
 
     # cd /usr/src/linux
-    # cp /path/to/linux-4.9.0-gentoo-surfacepro3/.config .
+    # cp /path/to/linux-4.9.5-gentoo-surfacepro3/.config .
     # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/wifi.patch"
     # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/multitouch.patch"
     # patch -p1 -i "/path/to/linux-4.6.1-gentoo-surfacepro3/touchscreen_multitouch_fixes1.patch"
@@ -87,4 +87,5 @@ These kernels were developed for use with Systemd, so if you're not
 planning on using it, you'll want to change CONFIG_CMDLINE to reflect
 your environment. Similarly, if your root partition isn't on
 `/dev/sda5`, you'll probably want to tweak that line or drop it
-altogether instead opting for something set in GRUB.
+altogether instead opting for something set in Grub.
+
