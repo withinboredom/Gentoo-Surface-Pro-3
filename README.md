@@ -145,6 +145,23 @@ Take a look at [Arch Wiki's HiDPI page](https://wiki.archlinux.org/index.php/HiD
 for more info on what you can do to make things readable.  Currently,
 Firefox looks great, as do many GNOME apps.  Some stuff... not so much.
 
+## Sleeping
+
+If you have issues with the display waking up after taking sleep/hibernate:
+
+``` sh
+emerge -av x11-drivers/xf86-video-intel
+```
+
+Place this in /etc/X11/xorg.conf.d/20-intel.conf
+
+```conf
+Section "Device"
+        Identifier	"Intel Graphics"
+        Driver          "Intel"
+        Option          "AccelMethod"   "sna"
+EndSection
+```
 
 ## Bluetooth
 
