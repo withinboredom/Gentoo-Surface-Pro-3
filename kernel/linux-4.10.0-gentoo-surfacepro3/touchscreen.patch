@@ -1,0 +1,68 @@
+From aef7bfdc4036b8fa2310d3d21c23263f6a93b11f Mon Sep 17 00:00:00 2001
+From: Rob Landers <landers.robert@gmail.com>
+Date: Mon, 20 Feb 2017 13:49:23 -0500
+Subject: [PATCH] HID: Multitouch for Surface Pro
+
+This is based on patches by Daniel Martin <consume.noise@gmail.com>.
+
+Fixes:
+- sometimes the touch panel sends invalid values
+- sometimes the touch panel may not send lift-off reports
+
+Contributor: Daniel Martin <consume.noise@gmail.com>
+Maintainer: Rob Landers <landers.robert@gmail.com>
+
+Signed-off-by: Rob Landers <landers.robert@gmail.com>
+---
+ drivers/hid/hid-multitouch.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 6dca668..6abd4ef 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -209,7 +209,8 @@ static struct mt_class mt_classes[] = {
+ 		.quirks = MT_QUIRK_ALWAYS_VALID |
+ 			MT_QUIRK_IGNORE_DUPLICATES |
+ 			MT_QUIRK_HOVERING |
+-			MT_QUIRK_CONTACT_CNT_ACCURATE },
++			MT_QUIRK_CONTACT_CNT_ACCURATE |
++			MT_QUIRK_NOT_SEEN_MEANS_UP },
+ 	{ .name = MT_CLS_EXPORT_ALL_INPUTS,
+ 		.quirks = MT_QUIRK_ALWAYS_VALID |
+ 			MT_QUIRK_CONTACT_CNT_ACCURATE,
+@@ -624,6 +625,11 @@ static void mt_complete_slot(struct mt_device *td, struct input_dev *input)
+ 	    td->num_received >= td->num_expected)
+ 		return;
+ 
++	if (td->curdata.x == 0xffff && td->curdata.x == td->curdata.y &&
++	    td->curdata.w == 0xffff && td->curdata.w == td->curdata.h) {
++	    goto inc_num_received;
++	}
++
+ 	if (td->curvalid || (td->mtclass.quirks & MT_QUIRK_ALWAYS_VALID)) {
+ 		int active;
+ 		int slotnum = mt_compute_slot(td, input);
+@@ -667,6 +673,7 @@ static void mt_complete_slot(struct mt_device *td, struct input_dev *input)
+ 		}
+ 	}
+ 
++inc_num_received:
+ 	td->num_received++;
+ }
+ 
+@@ -1111,8 +1118,10 @@ static int mt_probe(struct hid_device *hdev, const struct hid_device_id *id)
+ 		return -ENOMEM;
+ 	}
+ 
+-	if (id->vendor == HID_ANY_ID && id->product == HID_ANY_ID)
++	if (id->vendor == HID_ANY_ID && id->product == HID_ANY_ID &&
++	    id->group != HID_GROUP_MULTITOUCH_WIN_8) {
+ 		td->serial_maybe = true;
++	}
+ 
+ 	/*
+ 	 * Store the initial quirk state
+-- 
+2.10.2
+
