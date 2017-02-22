@@ -1,51 +1,70 @@
-From 0fa9e7a6822e3cae2ede97d39d9a025f6a448c48 Mon Sep 17 00:00:00 2001
+From 876a0a0eefb2bd5be2e67656e2dfb949f7df482c Mon Sep 17 00:00:00 2001
 From: Rob Landers <landers.robert@gmail.com>
-Date: Tue, 21 Feb 2017 11:12:28 -0500
-Subject: [PATCH] wifi patch
+Date: Tue, 21 Feb 2017 14:19:07 -0500
+Subject: [PATCH 1/2] wifi patch
 
 This is based on a wifi patch for 4.9.x ... this brings back some critical elements
 
 Signed-off-by: Rob Landers <landers.robert@gmail.com>
+---
+ drivers/net/wireless/marvell/mwifiex/11n_aggr.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/net/wireless/marvell/mwifiex/11n_aggr.c b/drivers/net/wireless/marvell/mwifiex/11n_aggr.c
+index c47d636..7f934d2 100644
+--- a/drivers/net/wireless/marvell/mwifiex/11n_aggr.c
++++ b/drivers/net/wireless/marvell/mwifiex/11n_aggr.c
+@@ -190,7 +190,6 @@ mwifiex_11n_aggregate_pkt(struct mwifiex_private *priv,
+ 				       ra_list_flags);
+ 		return -1;
+ 	}
+-	skb_reserve(skb_aggr, MWIFIEX_MIN_DATA_HEADER_LEN);
+ 	tx_info_aggr =  MWIFIEX_SKB_TXCB(skb_aggr);
+ 
+ 	memset(tx_info_aggr, 0, sizeof(*tx_info_aggr));
+-- 
+2.10.2
+
+
+From f4cb11160618021c690eb3e71ad25b2b8e735452 Mon Sep 17 00:00:00 2001
+From: Rob Landers <landers.robert@gmail.com>
+Date: Tue, 21 Feb 2017 22:04:25 -0500
+Subject: [PATCH 2/2] Apply patch for irq
 
 ---
- drivers/net/wireless/marvell/mwifiex/cfg80211.c | 3 +++
- drivers/net/wireless/marvell/mwifiex/pcie.c     | 9 +++++++++
- 2 files changed, 12 insertions(+)
+ drivers/net/wireless/marvell/mwifiex/main.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/marvell/mwifiex/cfg80211.c b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-index 145cc4b..0b83101 100644
---- a/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-+++ b/drivers/net/wireless/marvell/mwifiex/cfg80211.c
-@@ -418,6 +418,9 @@ mwifiex_cfg80211_set_power_mgmt(struct wiphy *wiphy,
+diff --git a/drivers/net/wireless/marvell/mwifiex/main.c b/drivers/net/wireless/marvell/mwifiex/main.c
+index e5c3a8a..c246d8e 100644
+--- a/drivers/net/wireless/marvell/mwifiex/main.c
++++ b/drivers/net/wireless/marvell/mwifiex/main.c
+@@ -1569,13 +1569,13 @@ static void mwifiex_probe_of(struct mwifiex_adapter *adapter)
+ 	struct device *dev = adapter->dev;
  
- 	ps_mode = enabled;
+ 	if (!dev->of_node)
+-		return;
++		goto err_exit;
  
-+	mwifiex_dbg(priv->adapter, ERROR, "jpw: hacking ps_mode to false\n");
-+	ps_mode = 0;
-+
- 	return mwifiex_drv_set_power(priv, &ps_mode);
+ 	adapter->dt_node = dev->of_node;
+ 	adapter->irq_wakeup = irq_of_parse_and_map(adapter->dt_node, 0);
+ 	if (!adapter->irq_wakeup) {
+-		dev_info(dev, "fail to parse irq_wakeup from device tree\n");
+-		return;
++		dev_dbg(dev, "fail to parse irq_wakeup from device tree\n");
++		goto err_exit;
+ 	}
+ 
+ 	ret = devm_request_irq(dev, adapter->irq_wakeup,
+@@ -1595,7 +1595,7 @@ static void mwifiex_probe_of(struct mwifiex_adapter *adapter)
+ 	return;
+ 
+ err_exit:
+-	adapter->irq_wakeup = 0;
++	adapter->irq_wakeup = -1;
  }
  
-diff --git a/drivers/net/wireless/marvell/mwifiex/pcie.c b/drivers/net/wireless/marvell/mwifiex/pcie.c
-index 4db07da..642fb6e 100644
---- a/drivers/net/wireless/marvell/mwifiex/pcie.c
-+++ b/drivers/net/wireless/marvell/mwifiex/pcie.c
-@@ -1692,6 +1692,15 @@ static int mwifiex_pcie_process_cmd_complete(struct mwifiex_adapter *adapter)
- 
- 	pkt_len = *((__le16 *)skb->data);
- 	rx_len = le16_to_cpu(pkt_len);
-+
-+	if (rx_len == 0) {
-+	    mwifiex_dbg(adapter, ERROR,
-+	        "0 byte cmdrsp\n");
-+        mwifiex_map_pci_memory(adapter, skb, MWIFIEX_UPLD_SIZE,
-+            PCI_DMA_FROMDEVICE);
-+        return 0;
-+	}
-+
- 	skb_put(skb, MWIFIEX_UPLD_SIZE - skb->len);
- 	skb_trim(skb, rx_len);
- 	skb_pull(skb, INTF_HEADER_LEN);
+ /*
 -- 
 2.10.2
 
